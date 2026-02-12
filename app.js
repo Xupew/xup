@@ -9,6 +9,7 @@ const leftLabel = document.getElementById("items-left");
 const totalLabel = document.getElementById("items-total");
 const clearDoneButton = document.getElementById("clear-done");
 const filterButtons = [...document.querySelectorAll(".filters button")];
+const searchInput = document.getElementById("todo-search");
 const PRIORITY_ORDER = ["high", "medium", "low"];
 const PRIORITY_META = {
   high: { label: "高", className: "high" },
@@ -17,6 +18,7 @@ const PRIORITY_META = {
 };
 
 let filter = "all";
+let searchQuery = "";
 let todos = loadTodos();
 
 render();
@@ -69,6 +71,11 @@ clearDoneButton.addEventListener("click", () => {
   render();
 });
 
+searchInput.addEventListener("input", (event) => {
+  searchQuery = event.target.value;
+  render();
+});
+
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     filter = button.dataset.filter;
@@ -79,11 +86,15 @@ filterButtons.forEach((button) => {
 
 function render() {
   list.innerHTML = "";
+  const query = searchQuery.trim().toLowerCase();
 
   const visible = todos.filter((todo) => {
     if (filter === "active") return !todo.done;
     if (filter === "done") return todo.done;
     return true;
+  }).filter((todo) => {
+    if (!query) return true;
+    return todo.text.toLowerCase().includes(query);
   });
 
   for (const todo of visible) {
