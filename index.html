@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlowDo - 代办清单</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <p class="hero-tag">FLOWDO</p>
+        <h1>今天要完成什么？</h1>
+        <p class="hero-subtitle">轻量、直观、可离线保存的代办清单</p>
+      </header>
+
+      <section class="panel">
+        <form id="todo-form" class="todo-form" autocomplete="off">
+          <label for="todo-input" class="sr-only">输入待办事项</label>
+          <input id="todo-input" type="text" maxlength="120" placeholder="例如：完成首页布局" required />
+          <button type="submit">添加</button>
+        </form>
+
+        <div class="toolbar">
+          <div class="filters" role="tablist" aria-label="筛选任务">
+            <button data-filter="all" class="active" type="button">全部</button>
+            <button data-filter="active" type="button">进行中</button>
+            <button data-filter="done" type="button">已完成</button>
+          </div>
+          <button id="clear-done" class="ghost-btn" type="button">清除已完成</button>
+        </div>
+
+        <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
+
+        <footer class="summary">
+          <span id="items-left">0 项进行中</span>
+          <span id="items-total">共 0 项</span>
+        </footer>
+      </section>
+    </main>
+
+    <template id="todo-item-template">
+      <li class="todo-item">
+        <label class="checkbox-wrap">
+          <input class="toggle" type="checkbox" />
+          <span class="checkmark" aria-hidden="true"></span>
+        </label>
+        <span class="todo-text"></span>
+        <button class="delete-btn" type="button" aria-label="删除任务">删除</button>
+      </li>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

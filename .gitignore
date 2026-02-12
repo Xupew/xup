@@ -1,0 +1,15 @@
+# macOS 系统文件
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Claude/编辑器配置
+.claude/
+.vscode/
+.idea/
+
+# 日志文件
+*.log
+
+# 依赖目录（如果有）
+node_modules/
