@@ -9,6 +9,9 @@
   --ok: #2f7a53;
   --line: #e7d9cb;
   --danger: #a13d2d;
+  --priority-high: #f29a4a;
+  --priority-medium: #f4d35e;
+  --priority-low: #72a8f7;
   --shadow: 0 24px 60px rgba(62, 48, 31, 0.14);
 }
 
@@ -69,11 +72,12 @@ body {
 
 .todo-form {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
   gap: 10px;
 }
 
-.todo-form input {
+.todo-form input,
+.todo-form select {
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 13px 14px;
@@ -81,7 +85,8 @@ body {
   background: #fffefc;
 }
 
-.todo-form input:focus {
+.todo-form input:focus,
+.todo-form select:focus {
   outline: 2px solid #f0b491;
   border-color: transparent;
 }
@@ -152,7 +157,7 @@ body {
 
 .todo-item {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto auto 1fr auto;
   align-items: center;
   gap: 12px;
   padding: 10px;
@@ -160,6 +165,40 @@ body {
   background: #fffdfc;
   border: 1px solid #f1e8de;
   animation: appear 260ms ease;
+}
+
+.todo-item.priority-high {
+  border-left: 5px solid var(--priority-high);
+}
+
+.todo-item.priority-medium {
+  border-left: 5px solid var(--priority-medium);
+}
+
+.todo-item.priority-low {
+  border-left: 5px solid var(--priority-low);
+}
+
+.priority-badge {
+  font: 700 12px/1 "Noto Sans SC", sans-serif;
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: #3d3328;
+}
+
+.priority-badge.high {
+  background: #ffe2cb;
+  border: 1px solid var(--priority-high);
+}
+
+.priority-badge.medium {
+  background: #fff6cb;
+  border: 1px solid var(--priority-medium);
+}
+
+.priority-badge.low {
+  background: #dbeaff;
+  border: 1px solid var(--priority-low);
 }
 
 .checkbox-wrap {
@@ -272,6 +311,10 @@ body {
   }
 
   .todo-form button {
+    height: 44px;
+  }
+
+  .todo-form select {
     height: 44px;
   }
 }

@@ -24,6 +24,12 @@
         <form id="todo-form" class="todo-form" autocomplete="off">
           <label for="todo-input" class="sr-only">输入待办事项</label>
           <input id="todo-input" type="text" maxlength="120" placeholder="例如：完成首页布局" required />
+          <label for="todo-priority" class="sr-only">选择优先级</label>
+          <select id="todo-priority" aria-label="选择优先级">
+            <option value="high">高优先级</option>
+            <option value="medium" selected>中优先级</option>
+            <option value="low">低优先级</option>
+          </select>
           <button type="submit">添加</button>
         </form>
 
@@ -51,6 +57,7 @@
           <input class="toggle" type="checkbox" />
           <span class="checkmark" aria-hidden="true"></span>
         </label>
+        <span class="priority-badge"></span>
         <span class="todo-text"></span>
         <button class="delete-btn" type="button" aria-label="删除任务">删除</button>
       </li>

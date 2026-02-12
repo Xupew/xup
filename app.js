@@ -2,12 +2,19 @@ const STORAGE_KEY = "flowdo-items-v1";
 
 const form = document.getElementById("todo-form");
 const input = document.getElementById("todo-input");
+const priorityInput = document.getElementById("todo-priority");
 const list = document.getElementById("todo-list");
 const template = document.getElementById("todo-item-template");
 const leftLabel = document.getElementById("items-left");
 const totalLabel = document.getElementById("items-total");
 const clearDoneButton = document.getElementById("clear-done");
 const filterButtons = [...document.querySelectorAll(".filters button")];
+const PRIORITY_ORDER = ["high", "medium", "low"];
+const PRIORITY_META = {
+  high: { label: "高", className: "high" },
+  medium: { label: "中", className: "medium" },
+  low: { label: "低", className: "low" },
+};
 
 let filter = "all";
 let todos = loadTodos();
@@ -22,6 +29,7 @@ form.addEventListener("submit", (event) => {
   todos.unshift({
     id: crypto.randomUUID(),
     text,
+    priority: normalizePriority(priorityInput.value),
     done: false,
     createdAt: Date.now(),
   });
@@ -84,10 +92,16 @@ function render() {
 
     const textNode = node.querySelector(".todo-text");
     const toggle = node.querySelector(".toggle");
+    const priorityBadge = node.querySelector(".priority-badge");
+    const priority = normalizePriority(todo.priority);
+    const priorityMeta = PRIORITY_META[priority];
 
     textNode.textContent = todo.text;
     toggle.checked = todo.done;
     node.classList.toggle("done", todo.done);
+    node.classList.add(`priority-${priority}`);
+    priorityBadge.textContent = `${priorityMeta.label}优先级`;
+    priorityBadge.classList.add(priorityMeta.className);
 
     list.appendChild(node);
   }
@@ -113,6 +127,7 @@ function loadTodos() {
       .map((item) => ({
         id: typeof item.id === "string" ? item.id : crypto.randomUUID(),
         text: item.text.trim(),
+        priority: normalizePriority(item.priority),
         done: Boolean(item.done),
         createdAt: Number(item.createdAt) || Date.now(),
       }))
@@ -121,4 +136,8 @@ function loadTodos() {
   } catch {
     return [];
   }
+}
+
+function normalizePriority(value) {
+  return PRIORITY_ORDER.includes(value) ? value : "medium";
 }
